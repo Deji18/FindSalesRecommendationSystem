@@ -37,6 +37,9 @@ def get_report(search_query):
         data = response.json()  # Parse the JSON response
         st.session_state.summaries = data
         for images in st.session_state.summaries:
+            if images.get("username")==None:
+                pass
+            else:
                 st.session_state.images.append(images.get("profilePic"))
                 st.session_state.userNames.append(images.get("username"))
 
@@ -146,6 +149,7 @@ if st.button("Generate Search query"):
 st.text_input("what are you looking for ?",key="search_query",disabled=True)
 st.button("Search",on_click=search_func)
 if st.session_state.images:
+    print(st.session_state.userNames    )
     tabs = st.tabs(st.session_state.userNames)
     for url,tab in enumerate(tabs):
          
