@@ -1,4 +1,3 @@
-
 FROM python:3.10.10-slim
 
 # Set the working directory in the container

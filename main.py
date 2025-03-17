@@ -13,65 +13,10 @@ OpenAI_API_KEY = os.getenv("OAK")
 from openai import OpenAI
 client = OpenAI(api_key=OpenAI_API_KEY)
 
-
 # Define the initial messages array
-messages = [
-    {
-        "role": "user",
-        "content": [
-            {
-                "type": "text",
-                "text": "I'm looking for someone to represent my brand help me write a search query for google to make it possible to find a brand ambassador my brand is of a pet care category and the business is based in london"
-            }
-        ]
-    },
-    {
-        "role": "assistant",
-        "content": [
-            {
-                "type": "text",
-                "text": " pet care brand ambassador London."
-            }
-        ]
-    },
-    {
-        "role": "user",
-        "content": [
-            {
-                "type": "text",
-                "text": "I'm looking for someone to represent my brand help me write a search query for google to make it possible to find a brand ambassador my brand is of a pet care category and the business is based in Nigeria"
-            }
-        ]
-    },
-    {
-        "role": "assistant",
-        "content": [
-            {
-                "type": "text",
-                "text": " pet care brand ambassador Nigeria."
-            }
-        ]
-    },
-    {
-        "role": "user",
-        "content": [
-            {
-                "type": "text",
-                "text": "I'm looking for someone to represent my brand help me write a search query for google to make it possible to find a brand ambassador my brand is of a Security Service category and the business is based in New york"
-            }
-        ]
-    },
-    {
-        "role": "assistant",
-        "content": [
-            {
-                "type": "text",
-                "text": " security service brand ambassador New York."
-            }
-        ]
-    }
-]
-
+messages=[
+        {"role": "system", "content": "You are an expert at crafting search queries for brands to find their dream brand ambassador."}
+    ]
 
 
 @st.cache_data(persist="disk")
@@ -190,20 +135,11 @@ if st.button("Generate Search query"):
 
     # Make the API call
     response = client.chat.completions.create(
-        model="ft:gpt-3.5-turbo-1106:group-c::AgwZVJPq",
+    model="ft:gpt-3.5-turbo-0125:brand-ambassodor-project::BC34rmn6",
         messages=messages,
-        response_format={
-            "type": "text"
-        },
-        temperature=1,
-        max_completion_tokens=2048,
-        top_p=1,
-        frequency_penalty=0,
-        presence_penalty=0
     )   
 
     # Extract and print the assistant's response
-    print(response.choices[0].message.content)
     assistant_response = response.choices[0].message.content
     st.session_state.search_query= assistant_response
 
